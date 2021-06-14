@@ -11,10 +11,10 @@ public class MenuState : ISceneState {
             tmpBtn.onClick.AddListener(() => OnStartGameBtnClick());
         }
     }
-    public override void StateUpdate() {
-    }
     public override void StateEnd() {
         //Release();
+    }
+    public override void StateUpdate() {
     }
     private void OnStartGameBtnClick() {
         m_Context.SetState(new GameState(m_Context), "GameScene");

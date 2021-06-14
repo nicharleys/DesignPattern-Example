@@ -17,6 +17,7 @@
     private ExampleSystemA m_ExampleSystemA = null;
     private ExampleSystemB m_ExampleSystemB = null;
     private ExampleSystemC m_ExampleSystemC = null;
+
     public void Initinal() {
         m_bCloseGame = false;
         //UI
