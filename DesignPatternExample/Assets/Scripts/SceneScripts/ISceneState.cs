@@ -1,11 +1,11 @@
 ﻿public class ISceneState {
-    private string m_StateName = "ISceneState";
+    private string _StateName = "ISceneState";
     public string StateName {
         get {
-            return m_StateName;
+            return _StateName;
         }
         set {
-            m_StateName = value;
+            _StateName = value;
         }
     }
     protected SceneStateContext m_Context;

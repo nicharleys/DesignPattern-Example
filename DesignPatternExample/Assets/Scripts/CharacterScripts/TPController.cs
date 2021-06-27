@@ -30,8 +30,14 @@ public class TPController : MonoBehaviour {
 
         float turnSpeed = Mathf.Lerp(180, 360, move.z);
         transform.Rotate(0, turnSpeed * Time.deltaTime * Mathf.Atan2(move.x, move.z), 0);
-        m_Animator.SetFloat("Speed", Mathf.Lerp(m_Animator.GetFloat("Speed"), move.z, 0.1f));
+       
 
+        if(move.z < 0) {
+            m_Animator.SetFloat("Speed", Mathf.Lerp(m_Animator.GetFloat("Speed"), 0, 0.1f));
+        }
+        else {
+            m_Animator.SetFloat("Speed", Mathf.Lerp(m_Animator.GetFloat("Speed"), move.z, 0.1f));
+        }
         if(m_Grounded) {
             if(jump) {
                 m_Rigidbody.AddForce(Vector3.up * m_JumpPower, ForceMode.Impulse);
@@ -40,7 +46,6 @@ public class TPController : MonoBehaviour {
         else {
             m_Rigidbody.AddForce(( Physics.gravity * m_GravityMultiplier ) - Physics.gravity);
         }
-        m_Animator.SetFloat("vSpeed", m_Rigidbody.velocity.y);
     }
     private void OnAnimatorMove() {
         if(m_Grounded) {

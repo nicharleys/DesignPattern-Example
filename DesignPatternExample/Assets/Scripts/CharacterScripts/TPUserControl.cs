@@ -12,6 +12,7 @@ public class TPUserControl : MonoBehaviour {
     void Start() {
         m_cam = Camera.main.transform;
         m_TPController = GetComponent<TPController>();
+        Cursor.lockState = CursorLockMode.Confined;
     }
     void Update() {
         if(Input.GetButtonDown("Jump")) {
