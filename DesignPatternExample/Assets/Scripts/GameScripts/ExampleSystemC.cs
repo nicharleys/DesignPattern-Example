@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class ExampleSystemC : IGameSystem {
-    private int m_ExampleCount = 3;
+    private int _exampleCount = 3;
     public ExampleSystemC(GameFunction theFunction) : base(theFunction) {
         Initialize();
     }
@@ -17,6 +17,6 @@ public class ExampleSystemC : IGameSystem {
         Debug.Log("Run ExampleC Update");
     }
     public int GetExampleCountC() {
-        return m_ExampleCount;
+        return _exampleCount;
     }
 }

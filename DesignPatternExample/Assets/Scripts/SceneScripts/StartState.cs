@@ -6,6 +6,6 @@
         //Initinal();
     }
     public override void StateUpdate() {
-        m_Context.SetState(new MenuState(m_Context), "MenuScene");
+        StateContext.SetState(new MenuState(StateContext), "MenuScene");
     }
 }

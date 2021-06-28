@@ -2,22 +2,22 @@
 
 public abstract class IUserInterface
 {
-    protected GameFunction m_GameFunction = null;
-    protected GameObject m_RootUI = null;
-    private bool m_bAction = true;
+    protected GameFunction GameFunction = null;
+    protected GameObject RootUI = null;
+    private bool _isAction = true;
     public IUserInterface(GameFunction theFunction) {
-        m_GameFunction = theFunction;
+        GameFunction = theFunction;
     }
-    public bool IsVisible() {
-        return m_bAction;
+    public bool GetActionState() {
+        return _isAction;
     }
     public virtual void ShowUI() {
-        m_RootUI.SetActive(true);
-        m_bAction = true;
+        RootUI.SetActive(true);
+        _isAction = true;
     }
     public virtual void HideUI() {
-        m_RootUI.SetActive(false);
-        m_bAction = false;
+        RootUI.SetActive(false);
+        _isAction = false;
     }
     public virtual void Initialize() { }
     public virtual void Release() { }

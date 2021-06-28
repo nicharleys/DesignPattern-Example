@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class ExampleSystemA : IGameSystem {
-    private int m_ExampleCount = 1;
+    private int _exampleCount = 1;
     public ExampleSystemA(GameFunction theFunction) : base(theFunction) {
         Initialize();
     }
@@ -17,11 +17,11 @@ public class ExampleSystemA : IGameSystem {
         Debug.Log("Run ExampleA Update");
     }
     public int GetExampleCountA() {
-        return m_ExampleCount;
+        return _exampleCount;
     }
     public void CloseGame() {
-        if(m_GameFunction.m_bCloseGame == false) {
-            m_GameFunction.m_bCloseGame = true;
+        if(GameFunction.IsCloseGame == false) {
+            GameFunction.IsCloseGame = true;
         }
     }
 }

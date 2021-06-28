@@ -1,15 +1,15 @@
 ﻿using UnityEngine;
 
 public abstract class ICharacter : MonoBehaviour {
-    private IWeapon m_Weapon = null;
+    private IWeapon _weapon = null;
     public float CharacterHp { get; set; }
 
-    public void SetWeapon(IWeapon weapon) {
-        m_Weapon = weapon;
-        m_Weapon.SetOwner(this);
+    public void SetWeapon(IWeapon theWeapon) {
+        _weapon = theWeapon;
+        _weapon.SetOwner(this);
     }
     public IWeapon GetWeapon() {
-        return m_Weapon;
+        return _weapon;
     }
     protected void SetWeaponAtkPlusValue(int value) {
         //m_Weapon.SetAtkPlusValue(value);

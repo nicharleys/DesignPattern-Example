@@ -1,16 +1,16 @@
 ﻿public class ISceneState {
-    private string _StateName = "ISceneState";
+    private string _stateName = "ISceneState";
     public string StateName {
         get {
-            return _StateName;
+            return _stateName;
         }
         set {
-            _StateName = value;
+            _stateName = value;
         }
     }
-    protected SceneStateContext m_Context;
+    protected SceneStateContext StateContext;
     public ISceneState(SceneStateContext theContext) {
-        m_Context = theContext;
+        StateContext = theContext;
     }
     public virtual void StateBegin() { }
     public virtual void StateUpdate() { }

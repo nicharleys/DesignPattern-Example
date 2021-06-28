@@ -1,7 +1,7 @@
 ﻿public abstract class IGameSystem {
-    protected GameFunction m_GameFunction = null;
-    public IGameSystem(GameFunction Function) {
-        m_GameFunction = Function;
+    protected GameFunction GameFunction = null;
+    public IGameSystem(GameFunction theFunction) {
+        GameFunction = theFunction;
     }
     public virtual void Initialize() { }
     public virtual void Release() { }

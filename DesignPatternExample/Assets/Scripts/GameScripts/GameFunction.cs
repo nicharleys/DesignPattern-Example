@@ -9,57 +9,57 @@
         }
     }
 
-    public bool m_bCloseGame;
+    public bool IsCloseGame;
     //UI
-    private ExampleUIA m_ExampleUIA = null;
-    private ExampleUIB m_ExampleUIB = null;
+    private ExampleUIA _exampleUIA = null;
+    private ExampleUIB _exampleUIB = null;
     //System
-    private ExampleSystemA m_ExampleSystemA = null;
-    private ExampleSystemB m_ExampleSystemB = null;
-    private ExampleSystemC m_ExampleSystemC = null;
+    private ExampleSystemA _exampleSystemA = null;
+    private ExampleSystemB _exampleSystemB = null;
+    private ExampleSystemC _exampleSystemC = null;
 
-    public void Initinal() {
-        m_bCloseGame = false;
+    public void Initialize() {
+        IsCloseGame = false;
         //UI
-        m_ExampleUIA = new ExampleUIA(this);
-        m_ExampleUIB = new ExampleUIB(this);
+        _exampleUIA = new ExampleUIA(this);
+        _exampleUIB = new ExampleUIB(this);
         //System
-        m_ExampleSystemA = new ExampleSystemA(this);
-        m_ExampleSystemB = new ExampleSystemB(this);
-        m_ExampleSystemC = new ExampleSystemC(this);
+        _exampleSystemA = new ExampleSystemA(this);
+        _exampleSystemB = new ExampleSystemB(this);
+        _exampleSystemC = new ExampleSystemC(this);
 
     }
     public void Release() {
         //UI
-        m_ExampleUIA = null;
-        m_ExampleUIB = null;
+        _exampleUIA = null;
+        _exampleUIB = null;
         //System
-        m_ExampleSystemA = null;
-        m_ExampleSystemB = null;
-        m_ExampleSystemC = null;
+        _exampleSystemA = null;
+        _exampleSystemB = null;
+        _exampleSystemC = null;
     }
     public void Update() {
         //UI
-        m_ExampleUIA.Update();
-        m_ExampleUIB.Update();
+        _exampleUIA.Update();
+        _exampleUIB.Update();
         //System
-        m_ExampleSystemA.Update();
-        m_ExampleSystemB.Update();
-        m_ExampleSystemC.Update();
+        _exampleSystemA.Update();
+        _exampleSystemB.Update();
+        _exampleSystemC.Update();
     }
     public void ChangeCloseGameBool() {
-        m_ExampleSystemA.CloseGame();
+        _exampleSystemA.CloseGame();
     }
     public bool GetCloseGameBool() {
-        return m_bCloseGame;
+        return IsCloseGame;
     }
     public int GetExampleCountA() {
-        return m_ExampleSystemA.GetExampleCountA();
+        return _exampleSystemA.GetExampleCountA();
     }
     public int GetTimeCount() {
-        return m_ExampleSystemB.GetTimeCount();
+        return _exampleSystemB.GetTimeCount();
     }
     public int GetExampleCountC() {
-        return m_ExampleSystemC.GetExampleCountC();
+        return _exampleSystemC.GetExampleCountC();
     }
 }

@@ -17,6 +17,6 @@ public class ExampleUIB : IUserInterface {
         Debug.Log("ExampleUIB");
     }
     public void GetSystemFunction() {
-        m_GameFunction.GetExampleCountA();
+        GameFunction.GetExampleCountA();
     }
 }

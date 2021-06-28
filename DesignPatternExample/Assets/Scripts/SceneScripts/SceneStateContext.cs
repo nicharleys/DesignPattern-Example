@@ -2,33 +2,37 @@
 using UnityEngine.SceneManagement;
 
 public class SceneStateContext {
-    private ISceneState m_State;
-    private bool m_bRunBegin = false;
-    private string m_stSceneName = "";
+    private ISceneState _sceneState;
+    private bool _isRunBegin = false;
+    private string _sceneName = "";
     public SceneStateContext() { }
-    public void SetState(ISceneState theState, string theSceneName) {
-        m_bRunBegin = false;
-        m_stSceneName = theSceneName;
-        LoadScene(theSceneName);
-        if(m_State != null)
-            m_State.StateEnd();
-        m_State = theState;
+    public void SetState(ISceneState theState, string sceneName) {
+        _isRunBegin = false;
+        _sceneName = sceneName;
+        LoadScene(sceneName);
+        if(_sceneState != null)
+            _sceneState.StateEnd();
+        _sceneState = theState;
     }
-    private void LoadScene(string theSceneName) {
-        if(theSceneName == null || theSceneName.Length == 0)
+    private void LoadScene(string sceneName) {
+        if(sceneName == null || sceneName.Length == 0)
             return;
-        SceneManager.LoadScene(theSceneName);
+        SceneManager.LoadScene(sceneName);
     }
     public void StateUpdate() {
-        AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(m_stSceneName);
-        if(!asyncOperation.isDone)
-            return;
-        if(m_State != null && m_bRunBegin == false) {
-            m_State.StateBegin();
-            m_bRunBegin = true;
+        AsyncOperation asyncOperation = null;
+        if(SceneManager.GetActiveScene().name != _sceneName && _sceneName != "") {
+            asyncOperation = SceneManager.LoadSceneAsync(_sceneName);
+            if(!asyncOperation.isDone) {
+                return;
+            }
         }
-        if(m_State != null) {
-            m_State.StateUpdate();
+        if(_sceneState != null && _isRunBegin == false) {
+            _sceneState.StateBegin();
+            _isRunBegin = true;
+        }
+        if(_sceneState != null) {
+            _sceneState.StateUpdate();
         }
     }
 }

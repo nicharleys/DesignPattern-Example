@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class SceneStateCtr : MonoBehaviour {
-    SceneStateContext m_Context = new SceneStateContext();
+    private SceneStateContext _stateContext = new SceneStateContext();
     private static SceneStateCtr _instance;
     public static SceneStateCtr Instance { 
         get {
@@ -21,9 +21,9 @@ public class SceneStateCtr : MonoBehaviour {
         }
     }
     void Start() {
-        m_Context.SetState(new StartState(m_Context), "");
+        _stateContext.SetState(new StartState(_stateContext), "");
     }
     void Update() {
-        m_Context.StateUpdate();
+        _stateContext.StateUpdate();
     }
 }

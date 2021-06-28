@@ -1,9 +1,9 @@
 ﻿public class GameState : ISceneState {
     public GameState(SceneStateContext theContext) : base(theContext) {
-        this.StateName = "GameState";
+        StateName = "GameState";
     }
     public override void StateBegin() {
-        GameFunction.Instance.Initinal();
+        GameFunction.Instance.Initialize();
     }
     public override void StateEnd() {
         GameFunction.Instance.Release();
@@ -12,7 +12,7 @@
         InputProcess();
         GameFunction.Instance.Update();
         if(GameFunction.Instance.GetCloseGameBool()) {
-            m_Context.SetState(new MenuState(m_Context), "MenuScene");
+            StateContext.SetState(new MenuState(StateContext), "MenuScene");
         }
     }
     private void InputProcess() {

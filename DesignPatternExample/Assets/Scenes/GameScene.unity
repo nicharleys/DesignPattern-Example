@@ -841,8 +841,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d09541a6ebab8648b95ca2b953e6916, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_JumpPower: 8
-  m_GravityMultiplier: 2
+  _jumpPower: 8
+  _gravityMultiplier: 2
 --- !u!195 &339560672
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -877,15 +877,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 953e16e791b07fc4da09563861374e3e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  botHand: {fileID: 2007014050}
-  player:
+  _botHandPos: {fileID: 2007014050}
+  _player:
     serializedVersion: 2
     m_Bits: 256
-  agent: {fileID: 339560672}
-  seeRange: 20
-  attackRange: 12.5
-  safeRange: 5
-  seeAngle: 120
+  _agent: {fileID: 339560672}
   _CharacterHpUi: {fileID: 1068228150}
 --- !u!1 &385322464
 GameObject:
@@ -980,7 +976,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4af7db6ce886b604585d52f6697023cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefab: {fileID: 6012953401136548595, guid: e347677bf68e5f04497f441c79649931, type: 3}
+  Prefab: {fileID: 6012953401136548595, guid: e347677bf68e5f04497f441c79649931, type: 3}
   PfbAmount: 10
 --- !u!4 &419526731
 Transform:
@@ -2512,7 +2508,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4af7db6ce886b604585d52f6697023cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefab: {fileID: 7532878134974012259, guid: 8e8bf61673635c54fada29d0c2ffd7c3, type: 3}
+  Prefab: {fileID: 7532878134974012259, guid: 8e8bf61673635c54fada29d0c2ffd7c3, type: 3}
   PfbAmount: 10
 --- !u!4 &972809174
 Transform:
@@ -2612,7 +2608,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1055762685
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4401,7 +4397,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1732739852}
-  m_LocalRotation: {x: 0.17481944, y: -0.0000000038919414, z: 6.910277e-10, w: 0.98460054}
+  m_LocalRotation: {x: 0.17481941, y: 0.00000002570842, z: -0.0000000045646233, w: 0.98460054}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -4643,10 +4639,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ce91cb4eb4b8804e86615d205d74dec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_CubePool: {fileID: 2015798733}
-  m_SpherePool: {fileID: 419526730}
-  m_CapsulePool: {fileID: 972809173}
   screenPosRange: {x: 49.5, y: 1, z: 49.5}
+  CubePool: {fileID: 2015798733}
+  SpherePool: {fileID: 419526730}
+  CapsulePool: {fileID: 972809173}
 --- !u!4 &1792297406
 Transform:
   m_ObjectHideFlags: 0
@@ -5298,7 +5294,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4af7db6ce886b604585d52f6697023cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefab: {fileID: 2772365561349094815, guid: af3ae2b0c011e4c48b9f3f42441d07f7, type: 3}
+  Prefab: {fileID: 2772365561349094815, guid: af3ae2b0c011e4c48b9f3f42441d07f7, type: 3}
   PfbAmount: 10
 --- !u!4 &2015798734
 Transform:
@@ -7698,8 +7694,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d09541a6ebab8648b95ca2b953e6916, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_JumpPower: 8
-  m_GravityMultiplier: 2
+  _jumpPower: 8
+  _gravityMultiplier: 2
 --- !u!114 &7570174484282457667
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7712,8 +7708,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 648ee9a996cefbb45a819ec4deea479b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  botHand: {fileID: 702451032}
-  _CharacterHpUi: {fileID: 2106775683}
+  _botHandPos: {fileID: 702451032}
+  _characterHpUi: {fileID: 2106775683}
 --- !u!4 &7608481907812050930
 Transform:
   m_ObjectHideFlags: 0

@@ -2,13 +2,13 @@
 using UnityEngine.UI;
 
 public class IPlayer : ICharacter {
-    public Transform botHand;
-    private GameObject HitThing = null;
-    private bool m_bGetThing = false;
-    private bool m_bThrowThing = false;
-    private bool _isdied = false;
+    [SerializeField] private Transform _botHandPos;
+    [SerializeField] private Image _characterHpUi;
+    private GameObject _hitThing = null;
+    private bool _isGettingThing = false;
+    private bool _isThrowingThing = false;
+    private bool _isdead = false;
 
-    [SerializeField] private Image _CharacterHpUi;
     //public override void Initizal() { 
 
     //}
@@ -26,12 +26,12 @@ public class IPlayer : ICharacter {
             Attack();
         }
         else {
-            if(_isdied == false) {
-                _isdied = true;
+            if(_isdead == false) {
+                _isdead = true;
                 Dead();
             }
         }
-        _CharacterHpUi.fillAmount = Mathf.Lerp(_CharacterHpUi.fillAmount, CharacterHp / 100f, 0.1f);
+        _characterHpUi.fillAmount = Mathf.Lerp(_characterHpUi.fillAmount, CharacterHp / 100f, 0.1f);
     }
     public override void Attack() {
         SearchWeapons();
@@ -44,23 +44,23 @@ public class IPlayer : ICharacter {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
         if(Input.GetMouseButton(0) && Physics.Raycast(ray, out hit)) {
-            if(hit.transform.gameObject.layer == Constants.THING_LAYER && m_bGetThing == false && hit.transform.GetComponent<IWeapon>().GetWeaponOwner() == null) {
-                m_bGetThing = true;
-                HitThing = hit.transform.gameObject;
+            if(hit.transform.gameObject.layer == Constants.THING_LAYER && _isGettingThing == false && hit.transform.GetComponent<IWeapon>().GetWeaponOwner() == null) {
+                _isGettingThing = true;
+                _hitThing = hit.transform.gameObject;
 
-                SetWeapon(HitThing.GetComponent<IWeapon>());
+                SetWeapon(_hitThing.GetComponent<IWeapon>());
 
-                HitThing.GetComponent<Rigidbody>().isKinematic = true;
-                HitThing.GetComponent<Collider>().isTrigger = true;
-                HitThing.transform.SetParent(botHand);
-                HitThing.transform.localPosition = Vector3.zero;
-                HitThing.transform.localRotation = Quaternion.identity;
+                _hitThing.GetComponent<Rigidbody>().isKinematic = true;
+                _hitThing.GetComponent<Collider>().isTrigger = true;
+                _hitThing.transform.SetParent(_botHandPos);
+                _hitThing.transform.localPosition = Vector3.zero;
+                _hitThing.transform.localRotation = Quaternion.identity;
             }
         }
     }
     public override void ThrowAttack() {
-        if(HitThing != null && m_bThrowThing == false && Input.GetKeyDown(KeyCode.LeftControl)) {
-            m_bThrowThing = true;
+        if(_hitThing != null && _isThrowingThing == false && Input.GetKeyDown(KeyCode.LeftControl)) {
+            _isThrowingThing = true;
             gameObject.GetComponent<Animator>().SetTrigger("Throw");
         }
     }
@@ -69,13 +69,13 @@ public class IPlayer : ICharacter {
 
     }
     public void PlayerThrow() {
-        HitThing.transform.SetParent(null);
-        HitThing.GetComponent<Rigidbody>().isKinematic = false;
-        HitThing.GetComponent<Collider>().isTrigger = false;
-        HitThing.GetComponent<Rigidbody>().AddForce(gameObject.transform.forward * 1000);
-        HitThing.GetComponent<IWeapon>().ChangeThrowState();
-        HitThing = null;
-        m_bGetThing = false;
-        m_bThrowThing = false;
+        _hitThing.transform.SetParent(null);
+        _hitThing.GetComponent<Rigidbody>().isKinematic = false;
+        _hitThing.GetComponent<Collider>().isTrigger = false;
+        _hitThing.GetComponent<Rigidbody>().AddForce(gameObject.transform.forward * 1000);
+        _hitThing.GetComponent<IWeapon>().ChangeThrowState();
+        _hitThing = null;
+        _isGettingThing = false;
+        _isThrowingThing = false;
     }
 }
