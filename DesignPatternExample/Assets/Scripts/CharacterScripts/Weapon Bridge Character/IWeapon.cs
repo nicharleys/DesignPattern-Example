@@ -17,6 +17,12 @@ public abstract class IWeapon : MonoBehaviour {
     public ICharacter GetWeaponOwner() {
         return WeaponOwner;
     }
+    public int GetAtkValue() {
+        return AtkValue;
+    }
+    public void SetAtkPlusValue(int value) {
+        AtkPlusValue = value;
+    }
     public void RecoveryConfirmObj() {
         ScatterObjects scatterObjects = GameObject.Find("ObjectPool").GetComponent<ScatterObjects>();
         switch(GameObject.name) {
@@ -37,6 +43,9 @@ public abstract class IWeapon : MonoBehaviour {
         GameObject = theObject;
         Audio = theAudio;
     }
+    protected void ShowSoundEffect() {
+        Audio.Play();
+    }
     protected void Initialize() {
         GameObject.transform.GetChild(0).gameObject.SetActive(true);
         GameObject.transform.GetChild(1).gameObject.SetActive(false);
@@ -46,9 +55,6 @@ public abstract class IWeapon : MonoBehaviour {
         Audio.Stop();
         WeaponOwner = null;
         IsThrowing = false;
-    }
-    protected void ShowSoundEffect() {
-        Audio.Play();
     }
     protected void ShowCollisionEffect() {
         GameObject.gameObject.layer = Constants.DEFAULT_LAYER;

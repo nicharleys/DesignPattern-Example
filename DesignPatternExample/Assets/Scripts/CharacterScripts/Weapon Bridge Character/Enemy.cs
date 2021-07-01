@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UI;
 
-public class IEnemy : ICharacter {
+public class Enemy : ICharacter {
     [SerializeField] private Transform _botHandPos;
     [SerializeField] private LayerMask _player;
     [SerializeField] private NavMeshAgent _agent;
@@ -29,27 +29,22 @@ public class IEnemy : ICharacter {
     private bool _isActionInit = false;
     private bool _isSearchingWeapon = false;
     private bool _isdead = false;
+    private EnemyAttr _enemyAttr = null;
     private FightState FightState;
 
-    //public override void Initizal() {
-
-    //}
-    //public override void Update() {
-
-    //}
-    //public override void Release() {
-
-    //}
     void Start() {
         _tpController = GetComponent<TPController>();
         _animator = GetComponent<Animator>();
         _agent.updatePosition = true;
         _agent.updateRotation = false;
-        CharacterHp = 100f;
         _animator.SetBool("IsFighting", false);
+        EnemyAttrStrategy enemyAttrStrategy = new EnemyAttrStrategy();
+        _enemyAttr = new EnemyAttr(100, "Enemy", 30);
+        _enemyAttr.SetAttStrategy(enemyAttrStrategy);
+        SetCharacterAttr(_enemyAttr);
     }
     void FixedUpdate() {
-        if(CharacterHp != 0) {
+        if(_enemyAttr.GetNowHp() != 0) {
             MoveSetting();
             if(_animator.GetBool("IsFighting") == false) {
                 NoFightStateUpdate();
@@ -58,13 +53,8 @@ public class IEnemy : ICharacter {
                 FightStateUpdate();
             }
         }
-        else {
-            if(_isdead == false) {
-                _isdead = true;
-                Dead();
-            }
-        }
-        _CharacterHpUi.fillAmount = Mathf.Lerp(_CharacterHpUi.fillAmount, CharacterHp / 100f, 0.1f);
+        CheckHp();
+        _CharacterHpUi.fillAmount = Mathf.Lerp(_CharacterHpUi.fillAmount, _enemyAttr.GetNowHp() / _enemyAttr.GetMaxHp(), 0.1f);
     }
     private void MoveSetting() {
         _agent.SetDestination(_destPosition);
@@ -152,6 +142,10 @@ public class IEnemy : ICharacter {
                     }
                     FightStateChange();
                 }
+            }
+            else {
+                _animator.SetBool("IsFighting", false);
+
             }
         }
     }
@@ -269,15 +263,17 @@ public class IEnemy : ICharacter {
             return false;
         }
     }
-    public override void Dead() {
-        gameObject.GetComponent<Animator>().SetTrigger("Dead");
-        _agent.speed = 0;
+    public void CheckHp() {
+        if(Attribute.GetNowHp() <= 0) {
+            if(_isdead == false) {
+                _isdead = true;
+                gameObject.GetComponent<Animator>().SetTrigger("Dead");
+                _agent.speed = 0;
+            }
+        }
     }
     public override void Attack() {
         ThrowAttack();
-    }
-    public override void UnderAttack(ICharacter theAttacker) {
-        throw new System.NotImplementedException();
     }
     private void OnDrawGizmos() {
         Gizmos.color = Color.blue;

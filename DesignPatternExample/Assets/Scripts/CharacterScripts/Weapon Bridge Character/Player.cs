@@ -1,44 +1,31 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-public class IPlayer : ICharacter {
+public class Player : ICharacter {
     [SerializeField] private Transform _botHandPos;
     [SerializeField] private Image _characterHpUi;
     private GameObject _hitThing = null;
     private bool _isGettingThing = false;
     private bool _isThrowingThing = false;
     private bool _isdead = false;
-
-    //public override void Initizal() { 
-
-    //}
-    //public override void Update() { 
-
-    //}
-    //public override void Release() { 
-
-    //}
+    private PlayerAttr _playerAttr = null;
     void Start() {
-        CharacterHp = 100f;
+        PlayerAttrStrategy playerAttrStrategy = new PlayerAttrStrategy();
+        _playerAttr = new PlayerAttr(100, "Player");
+        _playerAttr.SetAttStrategy(playerAttrStrategy);
+        SetCharacterAttr(_playerAttr);
+        _playerAttr.SetPlayerLv(1);
     }
     void FixedUpdate() {
-        if(CharacterHp != 0) {
+        if(_playerAttr.GetNowHp() != 0) {
             Attack();
         }
-        else {
-            if(_isdead == false) {
-                _isdead = true;
-                Dead();
-            }
-        }
-        _characterHpUi.fillAmount = Mathf.Lerp(_characterHpUi.fillAmount, CharacterHp / 100f, 0.1f);
+        CheckHp();
+        _characterHpUi.fillAmount = Mathf.Lerp(_characterHpUi.fillAmount, _playerAttr.GetNowHp() / _playerAttr.GetMaxHp(), 0.1f);
     }
     public override void Attack() {
         SearchWeapons();
         ThrowAttack();
-    }
-    public override void UnderAttack(ICharacter theAttacker) {
-        throw new System.NotImplementedException();
     }
     public override void SearchWeapons() {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -64,9 +51,13 @@ public class IPlayer : ICharacter {
             gameObject.GetComponent<Animator>().SetTrigger("Throw");
         }
     }
-    public override void Dead() {
-        gameObject.GetComponent<Animator>().SetTrigger("Dead");
-
+    public void CheckHp() {
+        if(Attribute.GetNowHp() <= 0) {
+            if(_isdead == false) {
+                _isdead = true;
+                gameObject.GetComponent<Animator>().SetTrigger("Dead");
+            }
+        }
     }
     public void PlayerThrow() {
         _hitThing.transform.SetParent(null);

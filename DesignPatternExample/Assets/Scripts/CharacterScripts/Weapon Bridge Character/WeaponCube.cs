@@ -9,6 +9,7 @@ public class WeaponCube : IWeapon {
     void Awake() {
         _weaponAudio = gameObject.GetComponent<AudioSource>();
         SetWeaponSetting(gameObject, _weaponAudio);
+        AtkValue = 15;
     }
     void FixedUpdate() {
         if(gameObject.transform.position.y < 0 && IsThrowing == true) {
@@ -41,7 +42,7 @@ public class WeaponCube : IWeapon {
         ShowSoundEffect();
         if(target != null && _isHpCut == false) {
             _isHpCut = true;
-            target.CharacterHp -= 10;
+            target.GetAttribute().CalDmgValue(WeaponOwner);
         }
     }
 }
