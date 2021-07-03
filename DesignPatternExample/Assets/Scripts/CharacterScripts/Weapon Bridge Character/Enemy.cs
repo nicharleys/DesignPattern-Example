@@ -6,10 +6,8 @@ using UnityEngine.AI;
 using UnityEngine.UI;
 
 public class Enemy : ICharacter {
-    [SerializeField] private Transform _botHandPos;
     [SerializeField] private LayerMask _player;
     [SerializeField] private NavMeshAgent _agent;
-    [SerializeField] private Image _CharacterHpUi;
 
     private float _seeRange = 20;
     private float _attackRange = 12f;
@@ -21,40 +19,40 @@ public class Enemy : ICharacter {
     private TPController _tpController;
     private Animator _animator;
 
-    private GameObject _hitThing = null;
     private float _actionEndTime;
-    private bool _isThrowingThing = false;
     private bool _iNoFightEnter = false;
     private bool _isFightEnter = false;
     private bool _isActionInit = false;
     private bool _isSearchingWeapon = false;
-    private bool _isdead = false;
     private EnemyAttr _enemyAttr = null;
-    private FightState FightState;
+    private AiFightState FightState;
 
     void Start() {
+        Initialize(new EnemyAttrStrategy());
+    }
+    void FixedUpdate() {
+        CharacterUpdate(_enemyAttr);
+    }
+    public override void CharacterAttrInit() {
+        _enemyAttr = new EnemyAttr(100, "Enemy", 30);
+        _enemyAttr.SetAttStrategy(AttrStrategy);
+        SetCharacterAttr(_enemyAttr);
+    }
+    public override void SettingInit() {
         _tpController = GetComponent<TPController>();
         _animator = GetComponent<Animator>();
         _agent.updatePosition = true;
         _agent.updateRotation = false;
         _animator.SetBool("IsFighting", false);
-        EnemyAttrStrategy enemyAttrStrategy = new EnemyAttrStrategy();
-        _enemyAttr = new EnemyAttr(100, "Enemy", 30);
-        _enemyAttr.SetAttStrategy(enemyAttrStrategy);
-        SetCharacterAttr(_enemyAttr);
     }
-    void FixedUpdate() {
-        if(_enemyAttr.GetNowHp() != 0) {
-            MoveSetting();
-            if(_animator.GetBool("IsFighting") == false) {
-                NoFightStateUpdate();
-            }
-            if(_animator.GetBool("IsFighting") == true) {
-                FightStateUpdate();
-            }
+    public override void LoopProcess() {
+        MoveSetting();
+        if(_animator.GetBool("IsFighting") == false) {
+            NoFightStateUpdate();
         }
-        CheckHp();
-        _CharacterHpUi.fillAmount = Mathf.Lerp(_CharacterHpUi.fillAmount, _enemyAttr.GetNowHp() / _enemyAttr.GetMaxHp(), 0.1f);
+        if(_animator.GetBool("IsFighting") == true) {
+            FightStateUpdate();
+        }
     }
     private void MoveSetting() {
         _agent.SetDestination(_destPosition);
@@ -105,7 +103,7 @@ public class Enemy : ICharacter {
             _actionEndTime = Time.time + 1.5f;
             _isActionInit = false;
         }
-        if(Time.time > _actionEndTime && ( FightState == FightState.LookAt || FightState == FightState.Close )) {
+        if(Time.time > _actionEndTime && ( FightState == AiFightState.LookAt || FightState == AiFightState.Close )) {
             _isFightEnter = false;
             _animator.SetTrigger("Exit");
         }
@@ -119,24 +117,24 @@ public class Enemy : ICharacter {
                 else {
                     if(_animator.IsInTransition(0))
                         return;
-                    if(_botHandPos.childCount == 0 && !_isThrowingThing) {
-                        FightState = FightState.Search;
+                    if(BotHandPos.childCount == 0 && !IsThrowingThing) {
+                        FightState = AiFightState.Search;
                     }
                     else {
                         if(aiToPlayerDistance < _attackRange) {
                             if(aiToPlayerDistance < _safeRange) {
-                                FightState = FightState.Back;
+                                FightState = AiFightState.Back;
                             }
                             else {
-                                FightState = FightState.Attack;
+                                FightState = AiFightState.Attack;
                             }
                         }
                         else {
                             if(UnityEngine.Random.Range(0, 100) % 2 == 0) {
-                                FightState = FightState.LookAt;
+                                FightState = AiFightState.LookAt;
                             }
                             else {
-                                FightState = FightState.Close;
+                                FightState = AiFightState.Close;
                             }
                         }
                     }
@@ -151,7 +149,7 @@ public class Enemy : ICharacter {
     }
     private void FightStateChange() {
         switch(FightState) {
-            case FightState.Search:
+            case AiFightState.Search:
                 if(!_isActionInit) {
                     _isActionInit = true;
                     _agent.speed = 1;
@@ -171,14 +169,14 @@ public class Enemy : ICharacter {
                 }
                 SearchWeapons();
                 break;
-            case FightState.LookAt:
+            case AiFightState.LookAt:
                 if(!_isActionInit) {
                     _isActionInit = true;
                     _agent.speed = 0;
                 }
                 LookAtPlayer();
                 break;
-            case FightState.Close:
+            case AiFightState.Close:
                 if(!_isActionInit) {
                     _isActionInit = true;
                     _agent.speed = 0.5f;
@@ -188,15 +186,15 @@ public class Enemy : ICharacter {
                 Vector3 forwardPosition = forwardVector * forwardVectorLength + transform.position;
                 _destPosition = forwardPosition;
                 break;
-            case FightState.Attack:
+            case AiFightState.Attack:
                 if(!_isActionInit) {
                     _isActionInit = true;
                 }
-                if(LookAtPlayer() && _botHandPos.childCount != 0 && _isThrowingThing == false) {
+                if(LookAtPlayer() && BotHandPos.childCount != 0 && IsThrowingThing == false) {
                     ThrowAttack();
                 }
                 break;
-            case FightState.Back:
+            case AiFightState.Back:
                 if(!_isActionInit) {
                     _isActionInit = true;
                     Vector3 backVector = ( transform.position - _attackTarget.position ).normalized;
@@ -220,33 +218,12 @@ public class Enemy : ICharacter {
         if(_isSearchingWeapon == true) {
             Collider[] colliders = Physics.OverlapSphere(transform.position, _seeRange, 1 << LayerMask.NameToLayer("Thing"));
             if(colliders.Length != 0) {
-                if(_botHandPos.childCount == 0 && colliders[0].GetComponent<IWeapon>().GetWeaponOwner() == null) {
-                    _hitThing = colliders[0].transform.gameObject;
-
-                    SetWeapon(_hitThing.GetComponent<IWeapon>());
-
-                    _hitThing.GetComponent<Rigidbody>().isKinematic = true;
-                    _hitThing.GetComponent<Collider>().isTrigger = true;
-                    _hitThing.transform.SetParent(_botHandPos);
-                    _hitThing.transform.localPosition = Vector3.zero;
-                    _hitThing.transform.localRotation = Quaternion.identity;
+                if(BotHandPos.childCount == 0 && colliders[0].GetComponent<IWeapon>().GetWeaponOwner() == null && IsGettingThing == false) {
                     _isSearchingWeapon = false;
+                    ChangeWeaponInHand(colliders[0].transform.gameObject);
                 }
             }
         }
-    }
-    public override void ThrowAttack() {
-        _isThrowingThing = true;
-        gameObject.GetComponent<Animator>().SetTrigger("Throw");
-    }
-    public void EnemyThrow() {
-        _hitThing.transform.SetParent(null);
-        _hitThing.GetComponent<Rigidbody>().isKinematic = false;
-        _hitThing.GetComponent<Collider>().isTrigger = false;
-        _hitThing.GetComponent<Rigidbody>().AddForce(gameObject.transform.forward * 1000);
-        _hitThing.GetComponent<IWeapon>().ChangeThrowState();
-        _hitThing = null;
-        _isThrowingThing = false;
     }
     private bool LookAtPlayer() {
         Vector3 aiToPlayerVector = _attackTarget.position - transform.position;
@@ -263,17 +240,9 @@ public class Enemy : ICharacter {
             return false;
         }
     }
-    public void CheckHp() {
-        if(Attribute.GetNowHp() <= 0) {
-            if(_isdead == false) {
-                _isdead = true;
-                gameObject.GetComponent<Animator>().SetTrigger("Dead");
-                _agent.speed = 0;
-            }
-        }
-    }
-    public override void Attack() {
-        ThrowAttack();
+    public override void RunDeadProcess() {
+        gameObject.GetComponent<Animator>().SetTrigger("Dead");
+        _agent.speed = 0;
     }
     private void OnDrawGizmos() {
         Gizmos.color = Color.blue;
@@ -293,4 +262,3 @@ public class Enemy : ICharacter {
         Gizmos.DrawWireSphere(_destPosition, 0.2f);
     }
 }
-public enum FightState { LookAt, Close, Attack, Back, Search }

@@ -9656,7 +9656,7 @@ GameObject:
   - component: {fileID: 7532878134974012263}
   - component: {fileID: 7532878134974012256}
   - component: {fileID: 841128093}
-  - component: {fileID: 5683962846818290161}
+  - component: {fileID: 7032940955951442676}
   m_Layer: 9
   m_Name: Capsule
   m_TagString: Untagged
@@ -9806,7 +9806,7 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &5683962846818290161
+--- !u!114 &7032940955951442676
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -9815,6 +9815,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 7532878134974012259}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 85a1544189a112e4fbfdf2d1242ac902, type: 3}
+  m_Script: {fileID: 11500000, guid: 7f0cb14902196da4e976fe1c647ceae2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

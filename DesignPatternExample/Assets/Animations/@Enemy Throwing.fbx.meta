@@ -60,7 +60,7 @@ ModelImporter:
       curves: []
       events:
       - time: 0.24905664
-        functionName: EnemyThrow
+        functionName: ThrowThing
         data: 
         objectReferenceParameter: {fileID: 11500000, guid: 953e16e791b07fc4da09563861374e3e,
           type: 3}

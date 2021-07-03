@@ -91,7 +91,7 @@ GameObject:
   - component: {fileID: 5471608170709287811}
   - component: {fileID: 6770215720269363170}
   - component: {fileID: 1837334150}
-  - component: {fileID: 5593095800598290968}
+  - component: {fileID: 3867566460900411440}
   m_Layer: 9
   m_Name: Cube
   m_TagString: Untagged
@@ -240,7 +240,7 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &5593095800598290968
+--- !u!114 &3867566460900411440
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -249,7 +249,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2772365561349094815}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bf98316692961ee419f7559919e5133e, type: 3}
+  m_Script: {fileID: 11500000, guid: d93aa2b8f43724746ab247e7eaa866c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &3006448900671503146

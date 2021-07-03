@@ -756,7 +756,7 @@ GameObject:
   - component: {fileID: 339560671}
   - component: {fileID: 339560673}
   m_Layer: 0
-  m_Name: Test
+  m_Name: Enemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -877,12 +877,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 953e16e791b07fc4da09563861374e3e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _botHandPos: {fileID: 2007014050}
+  BotHandPos: {fileID: 2007014050}
+  CharacterHpUi: {fileID: 1068228150}
   _player:
     serializedVersion: 2
     m_Bits: 256
   _agent: {fileID: 339560672}
-  _CharacterHpUi: {fileID: 1068228150}
 --- !u!1 &385322464
 GameObject:
   m_ObjectHideFlags: 0
@@ -4397,7 +4397,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1732739852}
-  m_LocalRotation: {x: 0.17481944, y: -0.0000000038919414, z: 6.910277e-10, w: 0.98460054}
+  m_LocalRotation: {x: 0.17481941, y: 0.000000025708419, z: -0.0000000045646233, w: 0.98460054}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -7708,8 +7708,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 648ee9a996cefbb45a819ec4deea479b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _botHandPos: {fileID: 702451032}
-  _characterHpUi: {fileID: 2106775683}
+  BotHandPos: {fileID: 702451032}
+  CharacterHpUi: {fileID: 2106775683}
 --- !u!4 &7608481907812050930
 Transform:
   m_ObjectHideFlags: 0
