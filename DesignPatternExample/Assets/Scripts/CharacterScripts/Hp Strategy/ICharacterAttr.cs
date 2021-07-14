@@ -1,4 +1,6 @@
-﻿public abstract class ICharacterAttr
+﻿using DesignPatternExample.Character.CharacterSetting;
+
+public abstract class ICharacterAttr
 {
     protected float MaxHp = 0;
     protected float NowHp = 0;

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using DesignPatternExample.Character.CharacterSetting;
+using UnityEngine;
 public abstract class IWeapon : MonoBehaviour {
     protected float AtkPlusValue = 0;
     protected float AtkValue = 0;
