@@ -2064,7 +2064,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 790939097}
-  m_LocalRotation: {x: 0.1389385, y: -0.0000000085197485, z: 0.0000000011953144, w: 0.990301}
+  m_LocalRotation: {x: 0.1389385, y: 0.0000000085197485, z: -0.0000000011953144, w: 0.990301}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -3150,7 +3150,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1105564263}
-  m_LocalRotation: {x: 0.15688112, y: 0.000000008496661, z: -0.0000000013496781, w: 0.9876175}
+  m_LocalRotation: {x: 0.15688112, y: -0.000000008496661, z: 0.0000000013496781, w: 0.9876175}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -4001,7 +4001,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1571525726}
-  m_LocalRotation: {x: 0.15688112, y: 0.000000016993322, z: -0.0000000026993563, w: 0.9876175}
+  m_LocalRotation: {x: 0.15688112, y: -0.000000016993322, z: 0.0000000026993563, w: 0.9876175}
   m_LocalPosition: {x: 0, y: 3.1139998, z: -3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -4393,7 +4393,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1732739852}
-  m_LocalRotation: {x: 0.17481944, y: -0.0000000038919414, z: 6.910277e-10, w: 0.98460054}
+  m_LocalRotation: {x: 0.17481944, y: -0.00000000389194, z: 6.9102796e-10, w: 0.98460054}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -7627,7 +7627,6 @@ GameObject:
   - component: {fileID: 7570174484282457663}
   - component: {fileID: 7570174484282457662}
   - component: {fileID: 7570174484282457665}
-  - component: {fileID: 7570174484282457664}
   - component: {fileID: 7570174484282457667}
   m_Layer: 8
   m_Name: Bot
@@ -7666,18 +7665,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
---- !u!114 &7570174484282457664
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7570174484282457661}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7d8f11ce035308d4fb9d34c51c7c7281, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &7570174484282457665
 MonoBehaviour:
   m_ObjectHideFlags: 0

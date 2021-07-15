@@ -82,7 +82,4 @@ public class AttackAIState : IAIState {
         Vector3 targetVector = Vector3.ProjectOnPlane(CharacterAI.AttackTarget.transform.position - theCharacter.transform.position, Vector3.up);
         return Vector3.Angle(aiVector, targetVector) < 0.01f && true;
     }
-    public override void RemoveTarget(ICharacter theCharacter) {
-        throw new System.NotImplementedException();
-    }
 }

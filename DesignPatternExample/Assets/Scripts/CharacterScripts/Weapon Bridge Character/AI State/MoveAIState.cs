@@ -23,12 +23,14 @@ public class MoveAIState : IAIState {
     protected override void InTimeAction(ICharacter theCharacter) {
         Collider[] colliders = Physics.OverlapSphere(theCharacter.transform.position, SeeRange, 1 << LayerMask.NameToLayer("Player"));
         if(_lastHp != theCharacter.GetAttribute().GetNowHp()) {
-            CharacterAI.AttackTarget = colliders[0];
-            ActionToGetThing(theCharacter);
+            SearchAlivePlayer(colliders, theCharacter);
         }
-        for(int i = 0; i < colliders.Length; i++) {
-            if(Vector3.Angle(theCharacter.transform.forward, colliders[i].transform.position - theCharacter.transform.position) < _seeAngle / 2) {
-                CharacterAI.AttackTarget = colliders[0];
+        SearchAlivePlayer(colliders, theCharacter);
+    }
+    private void SearchAlivePlayer(Collider[] theColliders, ICharacter theCharacter) {
+        for(int i = 0; i < theColliders.Length; i++) {
+            if(Vector3.Angle(theCharacter.transform.forward, theColliders[i].transform.position - theCharacter.transform.position) < _seeAngle / 2 && theColliders[i].GetComponent<ICharacter>().GetAttribute().GetNowHp() > 0) {
+                CharacterAI.AttackTarget = theColliders[i];
                 ActionToGetThing(theCharacter);
             }
         }
@@ -40,7 +42,5 @@ public class MoveAIState : IAIState {
         else {
             ChangeAIState(new CloseAIState());
         }
-    }
-    public override void RemoveTarget(ICharacter theCharacter) {
     }
 }

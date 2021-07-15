@@ -63,7 +63,4 @@ public class SearchAIState : IAIState {
             }
         }
     }
-    public override void RemoveTarget(ICharacter theCharacter) {
-        throw new System.NotImplementedException();
-    }
 }

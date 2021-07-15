@@ -21,7 +21,7 @@ public class Enemy : ICharacter {
         CharacterUpdate(_enemyAttr);
     }
     internal override void CharacterAttrInit() {
-        _enemyAttr = new EnemyAttr(100, "Enemy", 30);
+        _enemyAttr = new EnemyAttr(1, "Enemy", 30);
         _enemyAttr.SetAttStrategy(AttrStrategy);
         SetCharacterAttr(_enemyAttr);
     }
@@ -40,9 +40,9 @@ public class Enemy : ICharacter {
     }
     internal override void RunDeadProcess() {
         gameObject.GetComponent<Animator>().SetTrigger("Dead");
-        _agent.speed = 0;
+        ChangeWeaponOutHand();
     }
-    private void OnDrawGizmos() {
+    public void OnDrawGizmos() {
         Gizmos.color = Color.blue;
         Gizmos.DrawWireSphere(transform.position, _seeRange);
         Gizmos.color = Color.red;

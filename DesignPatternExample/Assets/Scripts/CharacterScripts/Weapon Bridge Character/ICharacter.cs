@@ -38,7 +38,7 @@ namespace DesignPatternExample.Character.CharacterSetting {
             SettingInit();
         }
         protected void CharacterUpdate(ICharacterAttr theCharacterAttr) {
-            if(theCharacterAttr.GetNowHp() != 0) {
+            if(theCharacterAttr.GetNowHp() > 0) {
                 LoopProcess();
             }
             if(Attribute.GetNowHp() <= 0) {
@@ -73,6 +73,18 @@ namespace DesignPatternExample.Character.CharacterSetting {
         internal void ThrowAttack() {
             IsThrowingThing = true;
             gameObject.GetComponent<Animator>().SetTrigger("Throw");
+        }
+        internal void ChangeWeaponOutHand() {
+            if(HitThing == null)
+                return;
+            HitThing.transform.SetParent(null);
+            HitThing.GetComponent<Rigidbody>().isKinematic = false;
+            HitThing.GetComponent<Collider>().isTrigger = false;
+            HitThing = null;
+            _weapon.SetOwner(null);
+            _weapon = null;
+            IsGettingThing = false;
+            IsThrowingThing = false;
         }
         internal abstract void SettingInit();
         internal abstract void CharacterAttrInit();

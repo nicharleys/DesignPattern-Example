@@ -28,13 +28,13 @@ public abstract class IWeapon : MonoBehaviour {
     public void SetAtkPlusValue(int value) {
         AtkPlusValue = value;
     }
-    public void RunWeaponAwake(GameObject theGameObject, AudioSource  theAudio) {
+    protected void RunWeaponAwake(GameObject theGameObject, AudioSource theAudio) {
         SetWeaponSetting(theGameObject, theAudio);
         WeaponSetting();
     }
-    public void RunWeaponUpdate(GameObject theGameObject, float lifeTime) {
+    protected void RunWeaponUpdate(GameObject theGameObject, float lifeTime) {
         if(theGameObject.transform.position.y < 0 && IsThrowing == true) {
-            RecoveryConfirmObj();
+            RecoveryConfirmObj2();
         }
         if(IsTouchingObj == true) {
             SecondTime += Time.deltaTime;
@@ -46,35 +46,19 @@ public abstract class IWeapon : MonoBehaviour {
             OverLifeTime();
         }
     }
-    public void RunWeaponCollision(Collision theCollision) {
+    protected void RunWeaponCollision(Collision theCollision) {
         if(WeaponOwner != null) {
             ShowCollisionEffect();
             ShowSoundEffect();
             ICharacter target = theCollision.gameObject.GetComponent<ICharacter>();
-            if(target != null && IsHpCut == false) {
+            if(target != null && target != WeaponOwner && IsHpCut == false) {
                 IsHpCut = true;
                 target.GetAttribute().CalDmgValue(WeaponOwner);
             }
             IsTouchingObj = true;
         }
     }
-    public void RecoveryConfirmObj() {
-        ScatterObjects scatterObjects = GameObject.Find("ObjectPool").GetComponent<ScatterObjects>();
-        switch(GameObject.name) {
-            case "Cube(Clone)":
-                Recovery(scatterObjects.CubePool);
-                return;
-            case "Sphere(Clone)":
-                Recovery(scatterObjects.SpherePool);
-                return;
-            case "Capsule(Clone)":
-                Recovery(scatterObjects.CapsulePool);
-                return;
-            default:
-                return;
-        }
-    }
-    public void SetWeaponSetting(GameObject theObject, AudioSource theAudio) {
+    private void SetWeaponSetting(GameObject theObject, AudioSource theAudio) {
         GameObject = theObject;
         Audio = theAudio;
     }
@@ -102,9 +86,9 @@ public abstract class IWeapon : MonoBehaviour {
         GameObject.transform.GetChild(1).gameObject.SetActive(false);
         GameObject.transform.GetComponent<Rigidbody>().isKinematic = false;
         GameObject.transform.GetComponent<Collider>().isTrigger = false;
-        RecoveryConfirmObj();
+        RecoveryConfirmObj2();
     }
-    private void Recovery(ObjectPool thePool) {
+    protected void Recovery(ObjectPool thePool) {
         ScatterObjects scatterObjects = GameObject.Find("ObjectPool").GetComponent<ScatterObjects>();
         Vector3 randomScreenPos = new Vector3(Random.Range(-scatterObjects.screenPosRange.x, scatterObjects.screenPosRange.x), 1, Random.Range(-scatterObjects.screenPosRange.z, scatterObjects.screenPosRange.z));
         Quaternion pfbRotation = Quaternion.Euler(0, Random.Range(-180, 180), 0);
@@ -112,4 +96,5 @@ public abstract class IWeapon : MonoBehaviour {
         Initialize();
     }
     protected abstract void WeaponSetting();
+    protected abstract void RecoveryConfirmObj2();
 }

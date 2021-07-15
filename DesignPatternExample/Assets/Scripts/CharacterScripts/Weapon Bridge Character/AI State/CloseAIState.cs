@@ -66,7 +66,4 @@ public class CloseAIState : IAIState {
         Vector3 forwardPosition = forwardVector * forwardVectorLength + theCharacter.transform.position;
         CharacterAI.DestPosition = forwardPosition;
     }
-    public override void RemoveTarget(ICharacter theCharacter) {
-        throw new System.NotImplementedException();
-    }
 }

@@ -29,6 +29,7 @@ public abstract class IAIState
         }
     }
     private void TimeLoopAction(ICharacter theCharacter) {
+        CheckAttackTargetHp(theCharacter);
         if(!CharacterAI.IsStateEnter) {
             CharacterAI.IsStateEnter = true;
             ActionEndTime = Time.time + 1.5f;
@@ -46,8 +47,18 @@ public abstract class IAIState
         CharacterAI.ChangeAIState(theAIState);
         CharacterAI.IsStateEnter = false;
     }
+    private void CheckAttackTargetHp(ICharacter theCharacter) {
+        if(CharacterAI.AttackTarget == null) {
+            if(theCharacter.GetWeapon() != null)
+                theCharacter.ChangeWeaponOutHand();
+            return;
+        }
+        if(CharacterAI.AttackTarget.GetComponent<ICharacter>().GetAttribute().GetNowHp() <= 0) {
+            CharacterAI.AttackTarget = null;
+            ChangeAIState(new MoveAIState());
+        }
+    }
     protected abstract void Initialize();
     protected abstract void InLoopExecute(ICharacter theCharacter);
     protected abstract void InTimeAction(ICharacter theCharacter);
-    public abstract void RemoveTarget(ICharacter theCharacter);
 }
