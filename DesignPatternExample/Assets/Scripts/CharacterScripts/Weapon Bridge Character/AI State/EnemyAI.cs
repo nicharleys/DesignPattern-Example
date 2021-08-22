@@ -3,11 +3,8 @@ using DesignPatternExample.CharacterAI.StatePattern;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class EnemyAI : ICharacterAI {
-    public EnemyAI(ICharacter theCharacter, NavMeshAgent theAgent, TPController theTpCtr, Animator theAnim) : base(theCharacter) {
-        Agent = theAgent;
-        TpCtr = theTpCtr;
-        Anim = theAnim;
+public class EnemyAI : CharacterAIAbstract {
+    public EnemyAI(CharacterAbstract theCharacter) : base(theCharacter) {
         ChangeAIState(new MoveAIState());
     }
 }

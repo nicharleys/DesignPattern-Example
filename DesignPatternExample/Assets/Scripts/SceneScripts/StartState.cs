@@ -1,4 +1,4 @@
-﻿public class StartState : ISceneState {
+﻿public class StartState : SceneStateBase {
     public StartState(SceneStateContext theContext) : base(theContext) {
         this.StateName = "StartState";
     }

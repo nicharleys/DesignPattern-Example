@@ -2,11 +2,11 @@
 using UnityEngine.SceneManagement;
 
 public class SceneStateContext {
-    private ISceneState _sceneState;
+    private SceneStateBase _sceneState;
     private bool _isRunBegin = false;
     private string _sceneName = "";
     public SceneStateContext() { }
-    public void SetState(ISceneState theState, string sceneName) {
+    public void SetState(SceneStateBase theState, string sceneName) {
         _isRunBegin = false;
         _sceneName = sceneName;
         LoadScene(sceneName);

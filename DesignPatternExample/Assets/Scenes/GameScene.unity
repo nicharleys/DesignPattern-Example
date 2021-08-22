@@ -754,7 +754,6 @@ GameObject:
   - component: {fileID: 339560666}
   - component: {fileID: 339560672}
   - component: {fileID: 339560671}
-  - component: {fileID: 339560670}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -829,20 +828,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
---- !u!114 &339560670
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 339560665}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c01bf6b03b672364bb365d6b2261c8ae, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  BotHandPos: {fileID: 2007014050}
-  CharacterHpUi: {fileID: 1068228150}
 --- !u!114 &339560671
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2048,7 +2033,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.7787234, y: 1}
+    m_SensorSize: {x: 1.776824, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -2732,7 +2717,7 @@ GameObject:
   - component: {fileID: 1068228151}
   - component: {fileID: 1068228150}
   m_Layer: 5
-  m_Name: Image
+  m_Name: HpBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3134,7 +3119,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.7787234, y: 1}
+    m_SensorSize: {x: 1.776824, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -4377,7 +4362,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.7787234, y: 1}
+    m_SensorSize: {x: 1.776824, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -4393,7 +4378,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1732739852}
-  m_LocalRotation: {x: 0.17481944, y: -0.00000000389194, z: 6.9102796e-10, w: 0.98460054}
+  m_LocalRotation: {x: 0.17481944, y: -0.0000000038919414, z: 6.910277e-10, w: 0.98460054}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -4795,7 +4780,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.7787234, y: 1}
+    m_SensorSize: {x: 1.776824, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -5351,7 +5336,7 @@ GameObject:
   - component: {fileID: 2106775684}
   - component: {fileID: 2106775683}
   m_Layer: 5
-  m_Name: Image
+  m_Name: HpBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7627,7 +7612,6 @@ GameObject:
   - component: {fileID: 7570174484282457663}
   - component: {fileID: 7570174484282457662}
   - component: {fileID: 7570174484282457665}
-  - component: {fileID: 7570174484282457667}
   m_Layer: 8
   m_Name: Bot
   m_TagString: Untagged
@@ -7679,20 +7663,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _jumpPower: 8
   _gravityMultiplier: 2
---- !u!114 &7570174484282457667
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7570174484282457661}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 648ee9a996cefbb45a819ec4deea479b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  BotHandPos: {fileID: 702451032}
-  CharacterHpUi: {fileID: 2106775683}
 --- !u!4 &7608481907812050930
 Transform:
   m_ObjectHideFlags: 0

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ExampleSystemC : IGameSystem {
+public class ExampleSystemC : GameSystemAbstract {
     private int _exampleCount = 3;
     public ExampleSystemC(GameFunction theFunction) : base(theFunction) {
         Initialize();

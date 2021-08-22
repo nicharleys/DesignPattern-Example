@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class CapsuleConcrete : WeaponCapsule {
     private void Awake() {
-        RunWeaponAwake(gameObject, gameObject.GetComponent<AudioSource>());
+        WeaponInit(gameObject);
     }
     private void FixedUpdate() {
-        RunWeaponUpdate(gameObject, 1.2f);
+        WeaponUpdate(1.2f);
     }
     private void OnCollisionEnter(Collision collision) {
-        RunWeaponCollision(collision);
+        WeaponCollision(collision);
     }
 }

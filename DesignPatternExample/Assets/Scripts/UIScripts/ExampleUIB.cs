@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class ExampleUIB : IUserInterface {
+public class ExampleUIB : UserInterfaceAbstract {
 
     public ExampleUIB(GameFunction theFunction) : base(theFunction) {
         Initialize();

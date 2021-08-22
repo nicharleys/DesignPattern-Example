@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-public class MenuState : ISceneState {
+public class MenuState : SceneStateBase {
     public MenuState(SceneStateContext theContext) : base(theContext) {
         StateName = "MenuState";
     }

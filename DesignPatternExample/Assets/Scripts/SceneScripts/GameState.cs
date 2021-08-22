@@ -1,4 +1,4 @@
-﻿public class GameState : ISceneState {
+﻿public class GameState : SceneStateBase {
     public GameState(SceneStateContext theContext) : base(theContext) {
         StateName = "GameState";
     }

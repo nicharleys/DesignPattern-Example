@@ -2,29 +2,29 @@
 using UnityEngine;
 using UnityEngine.AI;
 
-public class SearchAIState : IAIState {
+public class SearchAIState : AIStateAbstract {
     private bool _isStartSearch = false;
     public SearchAIState() {
         IsInited = false;
     }
     protected override void Initialize() {
-        CharacterAI.Anim.SetBool("IsFighting", true);
+        CharacterAI.Character.Anim.SetBool("IsFighting", true);
     }
-    protected override void InLoopExecute(ICharacter theCharacter) {
+    protected override void InLoopExecute(CharacterAbstract theCharacter) {
         IsActionInit = false;
     }
-    protected override void InTimeAction(ICharacter theCharacter) {
+    protected override void InTimeAction(CharacterAbstract theCharacter) {
         if(CharacterAI.AttackTarget == null) {
             ChangeAIState(new MoveAIState());
             return;
         }
-        float aiToPlayerDistance = Vector3.Distance(theCharacter.transform.position, CharacterAI.AttackTarget.transform.position);
+        float aiToPlayerDistance = Vector3.Distance(theCharacter.Character.transform.position, CharacterAI.AttackTarget.transform.position);
         if(aiToPlayerDistance > SeeRange + 0.5f) {
             CharacterAI.AttackTarget = null;
             CharacterAI.ChangeAIState(new MoveAIState());
         }
         else {
-            if(CharacterAI.Anim.IsInTransition(0))
+            if(CharacterAI.Character.Anim.IsInTransition(0))
                 return;
             if(theCharacter.BotHandPos.childCount == 0 && !theCharacter.IsThrowingThing) {
                 RandomWalk(theCharacter);
@@ -32,30 +32,30 @@ public class SearchAIState : IAIState {
             }
         }
     }
-    private void RandomWalk(ICharacter theCharacter) {
+    private void RandomWalk(CharacterAbstract theCharacter) {
         if(!IsActionInit) {
             IsActionInit = true;
-            CharacterAI.Agent.speed = 1;
+            CharacterAI.Character.Agent.speed = 1;
             _isStartSearch = true;
-            Vector3 randomVector = new Vector3(Random.Range(-48, 48), theCharacter.transform.position.y, Random.Range(-48, 48)).normalized;
+            Vector3 randomVector = new Vector3(Random.Range(-48, 48), theCharacter.Character.transform.position.y, Random.Range(-48, 48)).normalized;
             float randommVectorLength = AttackRange + SafeRange;
-            Vector3 firstRandomPos = randomVector * randommVectorLength + theCharacter.transform.position;
+            Vector3 firstRandomPos = randomVector * randommVectorLength + theCharacter.Character.transform.position;
             if(NavMesh.SamplePosition(firstRandomPos, out NavMeshHit hit, randommVectorLength - 0.5f, -1)) {
                 CharacterAI.DestPosition = hit.position;
             }
         }
         else {
-            if(CharacterAI.Agent.remainingDistance < CharacterAI.Agent.stoppingDistance) {
+            if(CharacterAI.Character.Agent.remainingDistance < CharacterAI.Character.Agent.stoppingDistance) {
                 CharacterAI.IsStateEnter = false;
-                CharacterAI.Anim.SetTrigger("Exit");
+                CharacterAI.Character.Anim.SetTrigger("Exit");
             }
         }
     }
-    private void SearchWeapon(ICharacter theCharacter) {
+    private void SearchWeapon(CharacterAbstract theCharacter) {
         if(_isStartSearch == true) {
-            Collider[] colliders = Physics.OverlapSphere(theCharacter.transform.position, SeeRange, 1 << LayerMask.NameToLayer("Thing"));
+            Collider[] colliders = Physics.OverlapSphere(theCharacter.Character.transform.position, SeeRange, 1 << LayerMask.NameToLayer("Thing"));
             if(colliders.Length != 0) {
-                if(colliders[0].GetComponent<IWeapon>().GetWeaponOwner() == null && theCharacter.IsGettingThing == false) {
+                if(colliders[0].GetComponent<WeaponAbstract>().GetWeaponOwner() == null && theCharacter.IsGettingThing == false) {
                     _isStartSearch = false;
                     theCharacter.ChangeWeaponInHand(colliders[0].transform.gameObject);
                     ChangeAIState(new CloseAIState());

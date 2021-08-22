@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class ExampleUIA : IUserInterface {
+public class ExampleUIA : UserInterfaceAbstract {
 
     public ExampleUIA(GameFunction theFunction) : base(theFunction) {
         Initialize();

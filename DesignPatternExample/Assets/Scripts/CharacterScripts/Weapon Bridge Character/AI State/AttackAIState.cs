@@ -1,34 +1,34 @@
 ﻿using DesignPatternExample.Character.CharacterSetting;
 using UnityEngine;
 using UnityEngine.AI;
-public class AttackAIState : IAIState {
+public class AttackAIState : AIStateAbstract {
     private bool _isAttacking = false;
     public AttackAIState() {
         IsInited = false;
     }
     protected override void Initialize() {
-        CharacterAI.Anim.SetBool("IsFighting", true);
+        CharacterAI.Character.Anim.SetBool("IsFighting", true);
     }
-    protected override void InLoopExecute(ICharacter theCharacter) {
+    protected override void InLoopExecute(CharacterAbstract theCharacter) {
         IsActionInit = false;
     }
-    protected override void InTimeAction(ICharacter theCharacter) {
+    protected override void InTimeAction(CharacterAbstract theCharacter) {
         if(CharacterAI.AttackTarget == null) {
             ChangeAIState(new MoveAIState());
             return;
         }
-        float aiToPlayerDistance = Vector3.Distance(theCharacter.transform.position, CharacterAI.AttackTarget.transform.position);
+        float aiToPlayerDistance = Vector3.Distance(theCharacter.Character.transform.position, CharacterAI.AttackTarget.transform.position);
         if(aiToPlayerDistance > AttackRange + 0.5f) {
             CharacterAI.AttackTarget = null;
             ChangeAIState(new CloseAIState());
         }
         else {
-            if(CharacterAI.Anim.IsInTransition(0))
+            if(CharacterAI.Character.Anim.IsInTransition(0))
                 return;
             SafeRangeAction(aiToPlayerDistance, theCharacter);
         }
     }
-    private void SafeRangeAction(float aiToPlayerDistance, ICharacter theCharacter) {
+    private void SafeRangeAction(float aiToPlayerDistance, CharacterAbstract theCharacter) {
         if(!theCharacter.IsGettingThing) {
             ChangeAIState(new SearchAIState());
             return;
@@ -43,43 +43,43 @@ public class AttackAIState : IAIState {
             }
         }
     }
-    private void BackTo(ICharacter theCharacter) {
+    private void BackTo(CharacterAbstract theCharacter) {
         if(!IsActionInit) {
             IsActionInit = true;
-            CharacterAI.Agent.speed = 1;
-            Vector3 backVector = ( theCharacter.transform.position - CharacterAI.AttackTarget.transform.position ).normalized;
-            float backVectorLength = ( SafeRange - Vector3.Distance(theCharacter.transform.position, CharacterAI.AttackTarget.transform.position) ) / 2 + SafeRange;
-            Vector3 backPosition = backVector * backVectorLength + theCharacter.transform.position;
+            CharacterAI.Character.Agent.speed = 1;
+            Vector3 backVector = ( theCharacter.Character.transform.position - CharacterAI.AttackTarget.transform.position ).normalized;
+            float backVectorLength = ( SafeRange - Vector3.Distance(theCharacter.Character.transform.position, CharacterAI.AttackTarget.transform.position) ) / 2 + SafeRange;
+            Vector3 backPosition = backVector * backVectorLength + theCharacter.Character.transform.position;
             if(NavMesh.SamplePosition(backPosition, out NavMeshHit hit, backVectorLength - 0.5f, -1)) {
                 CharacterAI.DestPosition = hit.position;
             }
         }
         else {
-            if(CharacterAI.Agent.remainingDistance < CharacterAI.Agent.stoppingDistance) {
+            if(CharacterAI.Character.Agent.remainingDistance < CharacterAI.Character.Agent.stoppingDistance) {
                 CharacterAI.IsStateEnter = false;
-                CharacterAI.Anim.SetTrigger("Exit");
+                CharacterAI.Character.Anim.SetTrigger("Exit");
             }
         }
 
     }
-    private void Attack(ICharacter theCharacter) {
+    private void Attack(CharacterAbstract theCharacter) {
         if(!IsActionInit) {
             IsActionInit = true;
-            CharacterAI.Agent.speed = 0;
+            CharacterAI.Character.Agent.speed = 0;
         }
         if(LookAt(theCharacter) && theCharacter.IsThrowingThing == false && _isAttacking == true) {
             _isAttacking = false;
             theCharacter.ThrowAttack();
         }
     }
-    private bool LookAt(ICharacter theCharacter) {
-        Vector3 aiToPlayerVector = CharacterAI.AttackTarget.transform.position - theCharacter.transform.position;
+    private bool LookAt(CharacterAbstract theCharacter) {
+        Vector3 aiToPlayerVector = CharacterAI.AttackTarget.transform.position - theCharacter.Character.transform.position;
         Quaternion lookRot = Quaternion.LookRotation(aiToPlayerVector);
         Quaternion finalRotation = Quaternion.Euler(0, lookRot.eulerAngles.y, 0);
-        theCharacter.transform.rotation = Quaternion.Lerp(theCharacter.transform.rotation, finalRotation, 0.2f);
+        theCharacter.Character.transform.rotation = Quaternion.Lerp(theCharacter.Character.transform.rotation, finalRotation, 0.2f);
 
-        Vector3 aiVector = Vector3.ProjectOnPlane(theCharacter.transform.forward, Vector3.up);
-        Vector3 targetVector = Vector3.ProjectOnPlane(CharacterAI.AttackTarget.transform.position - theCharacter.transform.position, Vector3.up);
+        Vector3 aiVector = Vector3.ProjectOnPlane(theCharacter.Character.transform.forward, Vector3.up);
+        Vector3 targetVector = Vector3.ProjectOnPlane(CharacterAI.AttackTarget.transform.position - theCharacter.Character.transform.position, Vector3.up);
         return Vector3.Angle(aiVector, targetVector) < 0.01f && true;
     }
 }

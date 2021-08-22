@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ExampleSystemB : IGameSystem {
+public class ExampleSystemB : GameSystemAbstract {
     private float _secondTimeFloat;
     private int _secondTime;
     public ExampleSystemB(GameFunction theFunction) : base(theFunction) {
